@@ -1,42 +1,46 @@
 import Base.BaseTests;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import Pages.LoginPage;
+import Pages.MainPage;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+
+import static java.sql.DriverManager.getDriver;
+import static org.openqa.selenium.devtools.v132.page.Page.captureScreenshot;
 
 public class LoginTests extends BaseTests {
 
-    @Test
-    public void basariligiris() throws InterruptedException {
-        WebDriver driver= new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("https://www.schafer.com.tr/UyeGiris");
-        driver.findElement(By.id("txtUyeGirisEmail")).sendKeys(email);
-        driver.findElements(By.name("txtUyeGirisPassword")).get(0).sendKeys(password);
-        driver.findElement(By.cssSelector("[class='newUserLoginBtn newButton']")).click();
-        Thread.sleep(3000);
-        WebElement hesapSimgesi = driver.findElement(By.cssSelector("[class='svgIcon cart-svg']"));
-        String text= driver.findElements(By.cssSelector("[class='account-link headerButon']")).get(0).getText();
-        System.out.println(text);
-        Assert.assertEquals(text,"");
+    LoginPage loginPage = new LoginPage();
+    MainPage mainPage= new MainPage();
+
+    @Test(description = "basarili kullanici girisi")
+    public void basariligiris() {
+        loginPage.fillEmail(email)
+                .fillPassword(password)
+                .clickLogin();
+        sleep(3000);
+        mainPage.accountControl();
+    }
+
+    @Test(description = "basarisiz kullanici girisi")
+    public void basarisizgiris() throws InterruptedException {
+
+        loginPage.fillEmail(email)
+                .fillPassword("admin123")
+                .clickLogin();
+        sleep(3000);
+
+        //Hatalı kullanıcı adı veya şifre, lütfen tekrar deneyiniz! uyarıyı site vermesine rağmen bir süre sonra bu uyarı kapanıyor bu yüzden failed oluyor.
+        loginPage.errorMessageControl("Hatalı kullanıcı adı veya şifre, lütfen tekrar deneyiniz!");
 
     }
-    @Test
-    public void basarisizgiris() throws InterruptedException{
-        WebDriver driver= new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("https://www.schafer.com.tr/UyeGiris");
-        driver.findElement(By.id("txtUyeGirisEmail")).sendKeys(email);
-        driver.findElements(By.name("txtUyeGirisPassword")).get(0).sendKeys("admin297.");
-        driver.findElement(By.cssSelector("[class='newUserLoginBtn newButton']")).click();
-        Thread.sleep(2000);
-        WebElement hesapSimgesi = driver.findElement(By.cssSelector("[class='svgIcon cart-svg']"));
-        String text= driver.findElement(By.cssSelector("[class='ticimaxDialogTxt ticimaxDialog-warning']")).getText();
-        System.out.println(text);
-        Assert.assertEquals(text,"Hatalı kullanıcı adı veya şifre, lütfen tekrar deneyiniz!");
-        //Hatalı kullanıcı adı veya şifre, lütfen tekrar deneyiniz! uyarıyı site veriyor ama bir süre sonra bu uyarı kapanıyor bu yüzden failed oluyor.
 
-    }
 }
