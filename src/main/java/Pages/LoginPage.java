@@ -8,6 +8,10 @@ import org.testng.Assert;
 public class LoginPage extends BaseTests {
 
     @Step("E-posta alani doldurulur")
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 8adf087aec7883fce80755db2dd1b5f83af87546
     public LoginPage fillEmail (String email){
         driver.findElement(By.id("txtUyeGirisEmail")).sendKeys(email);
         return this;
