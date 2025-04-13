@@ -8,7 +8,6 @@ import org.testng.Assert;
 public class LoginPage extends BaseTests {
 
     @Step("E-posta alani doldurulur")
-    //Kullandığım web sitesi kaynaklı uygulayamadım passed test failed teste dönüştü.E-mail ve şifre girilmedi.
     public LoginPage fillEmail (String email){
         driver.findElement(By.id("txtUyeGirisEmail")).sendKeys(email);
         return this;

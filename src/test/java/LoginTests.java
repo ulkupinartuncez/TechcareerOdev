@@ -42,5 +42,4 @@ public class LoginTests extends BaseTests {
         loginPage.errorMessageControl("Hatalı kullanıcı adı veya şifre, lütfen tekrar deneyiniz!");
 
     }
-
 }
