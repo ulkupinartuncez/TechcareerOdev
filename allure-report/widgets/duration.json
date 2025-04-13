@@ -1,0 +1,1 @@
+[{"uid":"9d857ad2564f2bb0","name":"basarili kullanici girisi","time":{"start":1744550573920,"stop":1744550577572,"duration":3652},"status":"passed","severity":"normal"},{"uid":"d3150a1160361a5b","name":"basarisiz kullanici girisi","time":{"start":1744550591564,"stop":1744550594863,"duration":3299},"status":"failed","severity":"normal"}]
